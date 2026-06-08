@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,19 +131,18 @@ line-height:1.8;
 }
 
 .bar{
-width:300px;
-height:25px;
-background:#1e293b;
-border-radius:20px;
-overflow:hidden;
-margin:20px auto;
+    width:300px;
+    height:25px;
+    background:#1e293b;
+    border-radius:20px;
+    overflow:hidden;
 }
 
 .fill{
-width:0;
-height:100%;
-background:#22c55e;
-transition:1s;
+    width:0;
+    height:100%;
+    background:#22c55e;
+    transition:1s;
 }
 
 .heart{
@@ -396,19 +395,30 @@ function openLetter(){
 document.getElementById("letter").style.display="block";
 }
 
+
 function checkMeter(){
 
-let score=Math.floor(Math.random()*11)+90;
+    let score = Math.floor(Math.random() * 11) + 90;
 
-document.getElementById("meterText").innerHTML=
-`${userName}'s Friendship Power : ${score}% 💙`;
+    document.getElementById("meterText").innerHTML =
+    `${userName}'s Friendship Power : ${score}% 💙`;
 
-document.getElementById("meterBar").style.width=
-score+"%";
+    document.getElementById("meterBar").style.width =
+    score + "%";
+
+    // Save to Google Sheet
+    fetch("https://script.google.com/macros/s/AKfycbyERD0DrlLjNREZhuLi_9-3_tDP_XL8Yv9vNkDAbB0xWy5xY-phRcDlCZDQ4mkrkEaSDw/exec", {
+        method: "POST",
+        body: JSON.stringify({
+            name: userName,
+            score: score
+        })
+    })
+    .then(response => console.log("Saved to sheet"))
+    .catch(error => console.log(error));
 }
 
 function finishJourney(){
-
 document.getElementById("finalName").innerHTML=
 `Thank You, ${userName} 💙`;
 
@@ -468,4 +478,3 @@ const loader = setInterval(() => {
 
 </body>
 </html>
-```
